@@ -89,10 +89,8 @@ export const cellForced = {
 
 export function defaultRenderCell(h, { row, column, $index }) {
   const property = column.property;
-  const value = property && getPropByPath(row, property).v;
-  if (column && column.formatter) {
-    return column.formatter(row, column, value, $index);
-  }
+  // const value = property && getPropByPath(row, property).v;
+  const value = property && row[property];
   return value;
 }
 

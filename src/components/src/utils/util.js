@@ -45,6 +45,7 @@ export const getValueByPath = function (object, prop) {
 };
 
 export function getPropByPath(obj, path, strict) {
+  debugger
   let tempObj = obj;
   path = path.replace(/\[(\w+)\]/g, '.$1');
   path = path.replace(/^\./, '');

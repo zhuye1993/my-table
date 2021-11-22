@@ -7,23 +7,12 @@
       <table-header
         ref="tableHeader"
         :store="store"
-        :border="border"
         :default-sort="defaultSort"
-        :style="{
-          width: layout.bodyWidth ? layout.bodyWidth + 'px' : '',
-        }"
       >
       </table-header>
     </div>
     <div ref="bodyWrapper">
-      <table-body
-        :context="context"
-        :store="store"
-        :stripe="stripe"
-        :row-class-name="rowClassName"
-        :row-style="rowStyle"
-        :highlight="highlightCurrentRow"
-      >
+      <table-body :context="context" :store="store" :stripe="stripe">
       </table-body>
     </div>
   </div>

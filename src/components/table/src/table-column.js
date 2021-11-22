@@ -155,42 +155,20 @@ export default {
       }
 
       let originRenderCell = column.renderCell;
-      // TODO: 这里的实现调整
-      if (column.type === 'expand') {
-        // 对于展开行，renderCell 不允许配置的。在上一步中已经设置过，这里需要简单封装一下。
-        column.renderCell = (h, data) => (<div class="cell">
-          {originRenderCell(h, data)}
-        </div>);
-        this.owner.renderExpanded = (h, data) => {
-          return this.$scopedSlots.default
-            ? this.$scopedSlots.default(data)
-            : this.$slots.default;
-        };
-      } else {
-        originRenderCell = originRenderCell || defaultRenderCell;
-        // 对 renderCell 进行包装
-        column.renderCell = (h, data) => {
-          let children = null;
-          if (this.$scopedSlots.default) {
-            children = this.$scopedSlots.default(data);
-          } else {
-            children = originRenderCell(h, data);
-          }
-          const prefix = treeCellPrefix(h, data);
-          const props = {
-            class: 'cell',
-            style: {}
-          };
-          if (column.showOverflowTooltip) {
-            props.class += ' el-tooltip';
-            props.style = { width: (data.column.realWidth || data.column.width) - 1 + 'px' };
-          }
-          return (<div {...props}>
-            {prefix}
-            {children}
-          </div>);
-        };
-      }
+      originRenderCell = originRenderCell || defaultRenderCell;
+      // 对 renderCell 进行包装
+      column.renderCell = (data) => {
+        let children = null;
+        if (this.$scopedSlots.default) {
+          children = this.$scopedSlots.default(data);
+        } else {
+          const { row, column } = data
+          children = row[column.property]
+          // children = originRenderCell(h, data);
+        }
+
+        return (<div >{children}</div>);
+      };
       return column;
     },
 

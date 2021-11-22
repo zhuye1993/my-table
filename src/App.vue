@@ -1,11 +1,20 @@
 <template>
   <div id="app">
+    <!-- <test>
+      <div slot="header">header</div>
+      <div slot-scope="scope">solt: {{ scope }}</div>
+      <div slot="footer">footer</div>
+    </test> -->
+    <test :data="list">
+      <!-- <span>{{ list[0].name }}</span> -->
+      <span slot-scope="scope">{{ scope.name }} | vm.scopedSlots的使用</span>
+    </test>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="date" label="日期"></el-table-column>
       <el-table-column prop="address" label="地址"></el-table-column>
       <el-table-column prop="opreation" label="操作">
-        <span>111</span>
+        <span slot-scope="scope">{{ scope.row.name }}</span>
       </el-table-column>
       <!-- <el-table-column prop="address" label="地址"> </el-table-column> -->
     </el-table>
@@ -15,9 +24,12 @@
 <script>
 // import myTable from "@/components/my-table/my-table.vue";
 // import myTableColumn from "@/components/my-table/my-table-column.vue";
+import Test from "@/components/Test.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    Test,
+  },
   data() {
     return {
       message: "1",
@@ -43,6 +55,7 @@ export default {
           address: "上海人",
         },
       ],
+      list: [{ name: 111 }, { name: 222 }, { name: 333 }],
     };
   },
   mounted() {},
