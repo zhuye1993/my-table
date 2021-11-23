@@ -5,30 +5,31 @@
       <div slot-scope="scope">solt: {{ scope }}</div>
       <div slot="footer">footer</div>
     </test> -->
-    <test :data="list">
-      <!-- <span>{{ list[0].name }}</span> -->
+    <!-- <test :data="list">
       <span slot-scope="scope">{{ scope.name }} | vm.scopedSlots的使用</span>
-    </test>
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="date" label="日期"></el-table-column>
-      <el-table-column prop="address" label="地址"></el-table-column>
-      <el-table-column prop="opreation" label="操作">
+    </test> -->
+    <my-table :data="tableData" style="width: 100%">
+      <my-table-column prop="name" label="姓名"></my-table-column>
+      <my-table-column prop="date" label="日期"></my-table-column>
+      <my-table-column prop="address" label="地址"></my-table-column>
+      <my-table-column prop="opreation" label="操作">
         <span slot-scope="scope">{{ scope.row.name }}</span>
-      </el-table-column>
-      <!-- <el-table-column prop="address" label="地址"> </el-table-column> -->
-    </el-table>
+      </my-table-column>
+      <!-- <my-table-column prop="address" label="地址"> </my-table-column> -->
+    </my-table>
   </div>
 </template>
 
 <script>
-// import myTable from "@/components/my-table/my-table.vue";
-// import myTableColumn from "@/components/my-table/my-table-column.vue";
+import myTable from "@/components/my-table/my-table.vue";
+import myTableColumn from "@/components/my-table/my-table-column.vue";
 import Test from "@/components/Test.vue";
 export default {
   name: "App",
   components: {
     Test,
+    myTable,
+    myTableColumn,
   },
   data() {
     return {

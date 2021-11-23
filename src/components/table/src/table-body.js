@@ -314,40 +314,15 @@ export default {
 
     rowRender(row, $index, treeRowData) {
       const { treeIndent, columns, firstDefaultColumnIndex } = this;
-      const columnsHidden = columns.map((column, index) => this.isColumnHidden(index));
-      const rowClasses = this.getRowClass(row, $index);
-      let display = true;
-
-      // 指令 v-show 会覆盖 row-style 中 display
-      // 使用 :style 代替 v-show https://github.com/ElemeFE/element/issues/16995
-      let displayStyle = display ? null : {
-        display: 'none'
-      };
       return (<tr>
         {
           columns.map((column, cellIndex) => {
-            const { rowspan, colspan } = this.getSpan(row, column, $index, cellIndex);
-            if (!rowspan || !colspan) {
-              return null;
-            }
+
             const columnData = { ...column };
-            columnData.realWidth = this.getColspanRealWidth(columns, colspan, cellIndex);
             const data = {
-              store: this.store,
-              _self: this.context || this.table.$vnode.context,
               column: columnData,
               row,
-              $index
             };
-            // console.log(this._renderProxy, column);
-            //   let children = null;
-            // if (this.$scopedSlots.default) {
-            //   children = this.$scopedSlots.default(data);
-            // } else {
-            //   const { row, column } = data
-            //   children = row[column.property]
-            // }
-
             return (
               <td>
                 {

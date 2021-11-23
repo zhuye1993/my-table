@@ -12,24 +12,10 @@ export default {
   created() {
     store.columns.length = 0;
   },
-  watch: {
-    // data: {
-    //   immediate: true,
-    //   handler(value) {
-    //     // store.list = [];
-    //     // store.list.push(...value);
-    //     // console.log(store.list, "list");
-    //   },
-    // },
-  },
   render() {
-    // slots 也要渲染，需要计算合并表头
-    // return h("div", this.$slots.default);
-    // return <div>123567</div>;
-    console.log(store.columns, "store.columns.");
-    // window.store = store;
     return (
       <div>
+        {this.$slots.default}
         <table cellspacing="0" cellpadding="0">
           <thead>
             <tr>
@@ -38,16 +24,19 @@ export default {
               ))}
             </tr>
           </thead>
-          {this.$slots.default}
-        </table>
-        <table cellspacing="0" cellpadding="0">
+
           <tbody>
             {this.data.map((item) => {
               return (
                 <tr>
-                  {store.columns.map((item1) => (
-                    <td>{item[item1.prop]}</td>
-                  ))}
+                  {store.columns.map((column) => {
+                    const columnData = { ...column };
+                    const data = {
+                      column: columnData,
+                      row: item,
+                    };
+                    return <td>{column.renderCell(data)}</td>;
+                  })}
                 </tr>
               );
             })}
